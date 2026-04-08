@@ -1,15 +1,18 @@
 #include <ncurses.h>
-#include <stdio.h>
+
+#define SCREEN_WIDTH 20
+#define SCREEN_HEIGHT 20
+
 
 int main(void) {
-    printf("Hello Rogue game\n");
-    initscr();            // start ncurses mode
-    noecho();             // don't echo keypresses
+    initscr();
+    printw("Hello Rogue Game!");
     cbreak();             // get keys immediately, no buffering
+    noecho();             // don't echo keypresses
     keypad(stdscr, TRUE); // enable arrow keys etc.
-    curs_set(0);          // hide the cursor
+    // curs_set(0);          // hide the cursor
 
-    mvprintw(0, 0, "@ ");  // draw the player
+    // mvprintw(10, 10, "@ ");  // draw the player
     refresh();             // flush to terminal
 
     getch();               // wait for any key
