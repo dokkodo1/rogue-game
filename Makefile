@@ -1,4 +1,4 @@
-CC      = gcc
+CC      = clang
 CFLAGS  = -Wall -Wextra -g $(shell pkg-config --cflags ncurses)
 LDFLAGS = $(shell pkg-config --libs ncurses)
 TARGET  = rogue
