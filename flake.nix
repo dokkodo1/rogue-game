@@ -20,6 +20,7 @@
         ];
         PKG_CONFIG_PATH = "${pkgs.ncurses.dev}/lib/pkgconfig";
         shellHook = ''
+          export CPATH="${pkgs.ncurses.dev}/include:$CPATH"
           echo "C + Ncurses dev shell — ncurses $(pkg-config --modversion ncurses)"
         '';
       };

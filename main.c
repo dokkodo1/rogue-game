@@ -1,64 +1,17 @@
-#include <stdio.h>
 #include <ncurses.h>
 
-#define WINDOW_HEIGHT   20
-#define WINDOW_WIDTH    40
+int main(void) {
+    initscr();            // start ncurses mode
+    noecho();             // don't echo keypresses
+    cbreak();             // get keys immediately, no buffering
+    keypad(stdscr, TRUE); // enable arrow keys etc.
+    curs_set(0);          // hide the cursor
 
-WINDOW *create_newwin(int height, int width, int starty, int startx) {
-    WINDOW *local_win = newwin(height, width, starty, startx);
-    box(local_win, 10, 10);
-    wrefresh(local_win);
+    mvprintw(0, 0, "@ ");  // draw the player
+    refresh();             // flush to terminal
 
-    return (local_win);
-}
+    getch();               // wait for any key
 
-int main(void)
-{
-    WINDOW *my_win;
-
-    int ch, col, row;
-
-    initscr();
-    getmaxyx(stdscr, 20, 20);
-    cbreak();
-    keypad(stdscr, TRUE);
-    noecho();
-
-    printw("Press q to exit\n");
-    printw("col: %d\nrow:%d\n", col, row);
-    refresh();
-    int x = row;
-    int y = col;
-    my_win = create_newwin(col, row, y, x);
-    wmove(my_win, x, y);
-    wrefresh(my_win);
-
-    while((ch = getch()) != 'q')
-    {
-        switch (ch)
-        {
-            case 'h':
-                if (x > 0)
-                    x--;
-                break;
-            case 'l':
-                if (x < row - 1)
-                    x++;
-                break;
-            case 'k':
-                if (y > 0)
-                    y--;
-                break;
-            case 'j':
-                if (y < col - 1)
-                    y++;
-                break;
-        }
-
-        wmove(my_win, y, x);
-        wrefresh(my_win);
-    }
-
-    endwin();
+    endwin();              // restore terminal
     return 0;
 }
